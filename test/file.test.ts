@@ -56,6 +56,19 @@ describe('File', () => {
     });
   });
 
+  it('should calculate info for a csharp file', async () => {
+    await doTest('x.cs', {
+      languages: 'c#',
+      lines: {
+        code: 10,
+        comment: 4,
+        total: 17
+      },
+      name: 'x.cs',
+      size: 253
+    });
+  });
+
   async function doTest(fileName: string, expectedFileInfo: FileInfo) {
     const fullPath = slash(path.join(__dirname, `/data2/${fileName}`));
     const actualFileInfo = await new LocFile(fullPath).getFileInfo();
