@@ -9,17 +9,24 @@ describe('Directory', () => {
       cwd: __dirname + '/data2'
     }, {
       files: [
+        'data2/x.cs',
         'data2/x.html',
         'data2/x.js',
         'data2/x.py',
         'data2/x.rb',
       ],
       info: {
-        code: 23,
-        comment: 23,
-        total: 61,
+        code: 33,
+        comment: 27,
+        total: 78,
       },
       languages: {
+        "c#": {
+          code: 10,
+          comment: 4,
+          sum: 1,
+          total: 17,
+        },
         html: {
           code: 4,
           comment: 4,

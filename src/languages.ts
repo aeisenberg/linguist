@@ -35,11 +35,32 @@ export class Languages {
   private loadExtensionMap = () => {
     const extensions: ExtensionsTypes = {};
 
+    /**
+     * The extension map can contain multiple languages with the same extension,
+     * but we only want a single one. For the moment, these clashes are resolved
+     * by the simple heuristic below listing high-priority languages. We may want
+     * to consider smarter heuristics to correctly identify languages in cases
+     * where the extension is ambiguous. The ordering of the list matters and
+     * languages earlier on will get a higher priority when resolving clashes.
+     */
+    const importantLanguages = ["javascript", "typescript", "ruby", "python", "java", "c", "c++", "c#", "rust", "scala", "perl", "go"];
+
     Object.keys(languageMap).forEach((language) => {
       const languageMode = languageMap[language];
       const languageExtensions = (languageMode && languageMode.extensions) || [];
       languageExtensions.forEach((extension: string) => {
-        extensions[extension.toLowerCase()] = language.toLowerCase();
+        if (!extensions[extension.toLowerCase()]) {
+          extensions[extension.toLowerCase()] = language.toLowerCase();
+        } else {
+          const currentLanguagePriority = importantLanguages.indexOf(extensions[extension.toLowerCase()]);
+          if (currentLanguagePriority == -1) {
+            extensions[extension.toLowerCase()] = language.toLowerCase();
+          } else {
+            const otherPriority = importantLanguages.indexOf(language.toLowerCase());
+            if (otherPriority != -1 && otherPriority < currentLanguagePriority)
+              extensions[extension.toLowerCase()] = language.toLowerCase();
+          }
+        }
       });
     });
 
