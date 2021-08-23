@@ -4,7 +4,6 @@
 
 import * as fs from 'fs-extra';
 import * as Path from 'path';
-// @ts-ignore
 import slash from 'slash2';
 
 import { Languages, Regexes } from './languages';
@@ -40,6 +39,7 @@ const DefaultFileInfo: FileInfo = {
  */
 export class LocFile {
   public path: string;
+
   private rawPath: string;
 
   private languages = new Languages();
@@ -59,13 +59,11 @@ export class LocFile {
     const total = codeLength;
 
     let inMultiLineComment = false;
-    lines.forEach((line) => {
-
+    lines.forEach((origLine) => {
       let lineType = 'code';
-      line = line.trim();
+      const line = origLine.trim();
 
       if (inMultiLineComment) {
-
         let noCode = true;
         if (regexes.multiLineCommentClose.test(line)) {
           // line contains the end of a multi-line comment
@@ -82,9 +80,7 @@ export class LocFile {
           commentLength += 1;
           codeLength -= 1;
         }
-
       } else if (line) {
-
         // non-empty line
         if (regexes.multiLineCommentOpen.test(line)) {
           // line contains the start of a multi-line comment
@@ -101,14 +97,12 @@ export class LocFile {
             codeLength -= 1;
             lineType = 'comm';
           }
-
         } else if (regexes.singleLineComment.test(line)) {
           // line contains only a single line comment
           commentLength += 1;
           codeLength -= 1;
           lineType = 'comm';
         }
-
       } else {
         // empty line
         codeLength -= 1;
@@ -116,7 +110,7 @@ export class LocFile {
       }
 
       if (this.debug) {
-        console.log(lineType, line)
+        console.log(lineType, line);
       }
     });
 
@@ -137,14 +131,14 @@ export class LocFile {
     }
 
     let newData = data;
-    const info: FileInfo = Object.assign({}, DefaultFileInfo);
+    const info: FileInfo = { ...DefaultFileInfo };
     const name = this.path.split(Path.sep).pop() || '';
     try {
       const stat = await fs.stat(this.path);
       if (!stat.isFile()) {
         return info;
       }
-      newData = data || await fs.readFile(this.path, 'utf-8');
+      newData = data || (await fs.readFile(this.path, 'utf-8'));
       info.name = name;
       info.size = (stat && stat.size) || 0;
       info.languages = this.languages.getType(this.path);
@@ -162,7 +156,7 @@ export class LocFile {
   }
 
   public getFileInfoByContent(name: string, data: string): FileInfo {
-    const info: FileInfo = Object.assign({}, DefaultFileInfo);
+    const info: FileInfo = { ...DefaultFileInfo };
     info.name = name;
     info.languages = this.languages.getType(name);
     info.lines = this.filterData(data, this.languages.getRegexes(info.languages));
