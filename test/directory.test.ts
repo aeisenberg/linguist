@@ -246,7 +246,7 @@ describe('Directory', () => {
     expect(actualResult).toEqual(expectedResult);
   }
 
-  function makeEmptyBlock(fileCount) {
+  function makeEmptyBlock(fileCount: number) {
     return {
       info: {
         code: 0,
