@@ -3,7 +3,6 @@
  */
 
 import * as fs from 'fs-extra';
-import * as Path from 'path';
 import slash from 'slash2';
 
 import { Languages, Regexes } from './languages';
@@ -132,7 +131,9 @@ export class LocFile {
 
     let newData = data;
     const info: FileInfo = { ...DefaultFileInfo };
-    const name = this.path.split(Path.sep).pop() || '';
+    // note: do not use Path.sep here since we have already
+    // translated the path to a posix path using slash(...).
+    const name = this.path.split('/').pop() || '';
     try {
       const stat = await fs.stat(this.path);
       if (!stat.isFile()) {
