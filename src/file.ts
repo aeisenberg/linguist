@@ -64,10 +64,10 @@ export class LocFile {
 
       if (inMultiLineComment) {
         let noCode = true;
-        if (regexes.multiLineCommentClose.test(line)) {
+        if (regexes.multiLineCommentClose?.test(line)) {
           // line contains the end of a multi-line comment
           inMultiLineComment = false;
-          if (!regexes.multiLineCommentCloseEnd.test(line)) {
+          if (!regexes.multiLineCommentCloseEnd?.test(line)) {
             // the multiline comment does not end this line.
             // there is real code on it.
             noCode = false;
@@ -81,22 +81,22 @@ export class LocFile {
         }
       } else if (line) {
         // non-empty line
-        if (regexes.multiLineCommentOpen.test(line)) {
+        if (regexes.multiLineCommentOpen?.test(line)) {
           // line contains the start of a multi-line comment
           // might contain some real code, but we'll let that slide
 
-          if (!regexes.multiLineCommentOpenAndClose.test(line)) {
+          if (!regexes.multiLineCommentOpenAndClose?.test(line)) {
             // comment is not also closed on this line
             inMultiLineComment = true;
           }
 
-          if (regexes.multiLineCommentOpenStart.test(line)) {
+          if (regexes.multiLineCommentOpenStart?.test(line)) {
             // The comment starts the line. There is no other code on this line
             commentLength += 1;
             codeLength -= 1;
             lineType = 'comm';
           }
-        } else if (regexes.singleLineComment.test(line)) {
+        } else if (regexes.singleLineComment?.test(line)) {
           // line contains only a single line comment
           commentLength += 1;
           codeLength -= 1;

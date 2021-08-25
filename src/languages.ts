@@ -30,11 +30,11 @@ const importantLanguages = [
 
 export interface Regexes {
   singleLineComment: RegExp;
-  multiLineCommentOpen: RegExp;
-  multiLineCommentOpenStart: RegExp;
-  multiLineCommentClose: RegExp;
-  multiLineCommentCloseEnd: RegExp;
-  multiLineCommentOpenAndClose: RegExp;
+  multiLineCommentOpen?: RegExp;
+  multiLineCommentOpenStart?: RegExp;
+  multiLineCommentClose?: RegExp;
+  multiLineCommentCloseEnd?: RegExp;
+  multiLineCommentOpenAndClose?: RegExp;
 }
 
 const ALL_REGEXES: Record<string, Regexes> = {
@@ -65,19 +65,19 @@ const ALL_REGEXES: Record<string, Regexes> = {
     // matches when """ starts a line. This is not right, since
     // a multiline string is not always a comment, but for the
     // sake of simplicity, we will do that here.
-    multiLineCommentOpen: /"""/,
+    // multiLineCommentOpen: /"""/,
 
     // matches when """ starts a line
-    multiLineCommentOpenStart: /^"""/,
+    // multiLineCommentOpenStart: /^"""/,
 
     // matches when """ exists in a line
-    multiLineCommentClose: /"""/,
+    // multiLineCommentClose: /"""/,
 
     // matches when """ ends a line
-    multiLineCommentCloseEnd: /"""$/,
+    // multiLineCommentCloseEnd: /"""$/,
 
     // matches """ ... """
-    multiLineCommentOpenAndClose: /""".*"""/,
+    // multiLineCommentOpenAndClose: /""".*"""/,
   },
 
   ruby: {

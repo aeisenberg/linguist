@@ -16,8 +16,8 @@ describe('Directory', () => {
         'data2/x.rb',
       ],
       info: {
-        code: 33,
-        comment: 27,
+        code: 40,
+        comment: 20,
         total: 78,
       },
       languages: {
@@ -40,8 +40,8 @@ describe('Directory', () => {
           total: 17,
         },
         python: {
-          code: 7,
-          comment: 8,
+          code: 14,
+          comment: 1,
           sum: 1,
           total: 19,
         },
@@ -65,8 +65,8 @@ describe('Directory', () => {
         'data2/x.py',
       ],
       info: {
-        code: 12,
-        comment: 13,
+        code: 19,
+        comment: 6,
         total: 36,
       },
       languages: {
@@ -77,8 +77,8 @@ describe('Directory', () => {
           total: 17,
         },
         python: {
-          code: 7,
-          comment: 8,
+          code: 14,
+          comment: 1,
           sum: 1,
           total: 19,
         }

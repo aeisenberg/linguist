@@ -1,5 +1,5 @@
 1
-
+# yyy
 2 # xxx
 a = """ 3
 this counts as a comment line, but shouldn't

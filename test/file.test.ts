@@ -34,12 +34,12 @@ describe('File', () => {
     await doTest('x.py', {
       languages: 'python',
       lines: {
-        code: 7,
-        comment: 8,
+        code: 14,
+        comment: 1,
         total: 19
       },
       name: 'x.py',
-      size: 152
+      size: 157
     });
   });
 
